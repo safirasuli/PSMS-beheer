@@ -1,0 +1,112 @@
+﻿@model PSMSData.Model.parametermetsubtype
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>parametermetsubtype</h4>
+        <h5>Parameternaam @ViewBag.parameternaam</h5>
+        <h5>@ViewBag.gekozenDD geselecteerd: @ViewBag.domeinOfDatatype</h5>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @if (ViewBag.gekozenDD == "Datatype")
+            {
+                @Html.LabelFor(model => model.subtypenaam, "Subtypenaam", htmlAttributes: new { @class = "control-label col-md-2" })
+            }
+            else
+            {
+                @Html.LabelFor(model => model.subtypenaam, "Waarde", htmlAttributes: new { @class = "control-label col-md-2" })
+            }
+            
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.subtypenaam, new { @class = "form-control", @required = "required", id = "subtypenaam" })
+                @Html.ValidationMessageFor(model => model.subtypenaam, "", new { @class = "text-danger" })
+                @Html.Hidden("gekozenDD", ViewBag.gekozenDD as string)
+                @Html.Hidden("parameternaam", ViewBag.parameternaam as string)
+                @Html.Hidden("datatypeselectie", ViewBag.domeinOfDatatype as string)
+                @Html.Hidden("domeinselectie", ViewBag.domeinOfDatatype as string)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @if (ViewBag.gekozenDD == "Datatype")
+            {
+                @Html.LabelFor(model => model.waarde, "Waarde", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            }
+            else
+            {
+                @Html.LabelFor(model => model.waarde, "Subtypenaam", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            }
+            
+            @if (ViewBag.gekozenDD == "Datatype")
+            {
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.waarde, new {  @class = "form-control", @required = "required", id="waarde" })
+                @Html.ValidationMessageFor(model => model.waarde, "", new { @class = "text-danger" })
+            </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    @Html.DropDownList("waarde", ViewBag.domeinwaarde as SelectList)
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.beschrijving_kort, "Korte beschrijving", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.beschrijving_kort, new { @class = "form-control", @required = "required", id = "beschrijving_kort" })
+                @Html.ValidationMessageFor(model => model.beschrijving_kort, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.beschrijving_lang, "Lange beschrijving", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.beschrijving_lang, new { @class = "form-control", id = "beschrijving_lang" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.geldigheidvan, "Geldig van", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.geldigheidvan, new { @class = "form-control", @required = "required", id = "geldigheidvan" })
+                @Html.ValidationMessageFor(model => model.geldigheidvan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.geldigheidtot, "Geldig tot", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.geldigheidtot, new { @class = "form-control", @required = "required", id = "geldigheidtot" })
+                @Html.ValidationMessageFor(model => model.geldigheidtot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.geldigheidtot, " ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="submit" name="subtypeOpslaan" value="Opslaan" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<h5><p style='color:#89BE44'>@ViewBag.succesmessage</p></h5>
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

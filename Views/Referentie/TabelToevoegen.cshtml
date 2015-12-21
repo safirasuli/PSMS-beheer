@@ -1,0 +1,23 @@
+﻿@model PSMSData.Code.Entities.ReferentieTabelModel
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Referentie tabel toevoegen</h2>
+
+
+@using(Html.BeginForm("KolommenDefinieren", "Referentie")){
+    
+    @Html.LabelFor(m => m.TabelNaam)
+    @Html.TextBoxFor(m => m.TabelNaam)
+
+    <br/>
+
+    @Html.LabelFor(m => m.AantalKolommen)
+    @Html.TextBoxFor(m => m.AantalKolommen)
+
+    <br/>
+    <br/>
+    <input type="submit" value="Volgende" />
+}

@@ -1,0 +1,77 @@
+﻿@model PSMSData.Model.parametermetsubtype
+@{
+    ViewBag.Title = "Subtype";
+}
+
+<script>
+    function displayDatatype()
+    {
+        document.getElementById('domeinDiv').style.display = 'none';
+        document.getElementById('datatypeDiv').style.display = 'inline';
+    }
+    function displayDomein() {
+        document.getElementById('domeinDiv').style.display = 'inline';
+        document.getElementById('datatypeDiv').style.display = 'none';
+    }
+</script>
+<h2>Subtype</h2>
+
+
+
+@using (Html.BeginForm("CreatedSubtype", "parametermetsubtype", FormMethod.Post, new { }))
+{
+    @Html.AntiForgeryToken()
+    <h3><p style='color:#DB422E'>@ViewBag.errormessage</p></h3>
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.parameternaam, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+                @Html.TextBoxFor(model => model.parameternaam, new { @class = "form-control", id = "parameternaam", @required = "required" })
+                @Html.ValidationMessageFor(model => model.parameternaam, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                Domein <input type="radio" name="gekozenDD" onclick="displayDomein()" value="Domein" required="required">
+                Datatype <input type="radio" name="gekozenDD" onclick="displayDatatype()" value="Datatype">
+            </div>
+        </div>
+        <div id="domeinDiv" style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.domeinID, "domeinID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.DropDownList("domeinselectie", ViewBag.uniqueDomein as SelectList)
+                </div>
+            </div>
+           
+        </div>
+        <div style="display:none;" id="datatypeDiv">
+            @Html.LabelFor(model => model.domeinID, "Datatypeselectie", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("datatypeselectie", ViewBag.datatype as SelectList)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" name="CreatedSubtype" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

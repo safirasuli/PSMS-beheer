@@ -1,0 +1,162 @@
+﻿@using System.Activities.Statements
+@using System.Web.UI.WebControls
+@model PSMSData.Models.WijzigingTabelModel
+
+
+@{
+    ViewBag.Title = "Wijzigingen";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Wijzigingen</h2>
+@using (Html.BeginForm())
+{
+    foreach (var settingtype in Model.ListSettingtypenWijzigingen)
+
+    {
+        switch (settingtype)
+        {
+            case "Domein":
+                <div class="panel panel-default">
+                    <div class="panel-heading">@settingtype</div>
+                    <table class="table">
+
+                        @foreach (var parameter in Model.ListWijzigingen.Where(x => x.settingtype == settingtype).GroupBy(y => new { y.settingtype, y.domeinID }).Select(z => new
+                        {
+                            domein = z.Key
+                        }))
+                        {
+
+
+                            <thead>
+                                <tr class="panel">
+                                    <th colspan="6">
+                                        @{
+                                            var parameternaam = Model.ListParameterMetSubtype.Where(m => m.parameterid == parameter.domein.domeinID).Select(m => m.parameternaam).FirstOrDefault();
+                                        }
+                                        @if (@parameternaam != null)
+                                        {
+                                            @parameternaam
+                                        }
+                                        else
+                                        {
+                                            <text>Domein niet gevonden. Domein ID: @parameter.domein.domeinID</text>
+                                        }
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Kolomnaam</th>
+                                    <th>Waarde</th>
+                                    <th>Geldig vanaf</th>
+                                    <th>Gewijzigd door</th>
+                                    <th>Aangemaakt op</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var domein in Model.ListWijzigingen.Where(m => m.settingtype == settingtype).Where(n => n.domeinID == parameter.domein.domeinID))
+                                {
+                                    <tr>
+
+                                        <td><input type="checkbox" name="@domein.wijzigingid" /></td>
+                                        <td>@domein.kolomnaam</td>
+                                        <td>@domein.tewijzigenwaarde</td>
+                                        <td>@domein.geldigheidvan</td>
+                                        <td>@domein.gebruikersnaam</td>
+                                        <td>@domein.timestamp</td>
+
+                                    </tr>
+
+                                }
+                            </tbody>
+
+                                            }
+                    </table>
+                </div>
+                 break;
+
+            case "ParameterMetSubtype":
+            <div class="panel panel-default">
+                <div class="panel-heading">@settingtype</div>
+                <table class="table">
+
+                    @foreach (var parameter in Model.ListWijzigingen.Where(x => x.settingtype == settingtype).GroupBy(y => new { y.settingtype, y.subparameterid }).Select(z => new
+                    {
+                        parametermetsubtype = z.Key
+                    }))
+                    {
+
+
+                            <thead>
+                            <tr class="panel">
+                                <th colspan="6">
+                                    @{
+                                       var parameternaam = Model.ListParameterMetSubtype.Where(m => m.parameterid == parameter.parametermetsubtype.subparameterid).Select(m => m.parameternaam).FirstOrDefault();
+                                    }
+                                    @if (@parameternaam != null)
+                                    {
+                                        @parameternaam 
+                                    }
+                                    else
+                                    {
+                                        <text>Parameternaam niet gevonden. Parameter ID: @parameter.parametermetsubtype.subparameterid</text>
+                                    }
+                                </th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>Kolomnaam</th>
+                                <th>Waarde</th>
+                                <th>Geldig vanaf</th>
+                                <th>Gewijzigd door</th>
+                                <th>Aangemaakt op</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var parameterMetSubtype in Model.ListWijzigingen.Where(m => m.settingtype == settingtype).Where(n => n.subparameterid == parameter.parametermetsubtype.subparameterid))
+                            {
+                                <tr>
+                                    
+                                    <td><input type="checkbox" name="@parameterMetSubtype.wijzigingid"/></td>
+                                    <td>@parameterMetSubtype.kolomnaam</td>
+                                    <td>@parameterMetSubtype.tewijzigenwaarde</td>
+                                    <td>@parameterMetSubtype.geldigheidvan</td>
+                                    <td>@parameterMetSubtype.gebruikersnaam</td>
+                                    <td>@parameterMetSubtype.timestamp</td>
+
+                                </tr>
+
+                            }
+                            </tbody>
+                        
+                    }
+                </table>
+            </div>
+        break;
+
+    case "ParameterZonderSubtype":
+    
+            break;
+
+            case "RangeTabel":
+
+            break;
+
+            case "Referentie":
+
+            break;
+
+            default:
+
+            break;
+
+            }
+            }
+            <span class="pull-right">
+                <input type="submit" value="Goedkeuren" class="btn btn-primary" />
+            </span>
+            <span>
+                <p>&nbsp;</p>
+            </span>
+
+            }

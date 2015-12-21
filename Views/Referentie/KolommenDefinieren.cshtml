@@ -1,0 +1,113 @@
+﻿@model PSMSData.Code.Entities.ReferentieTabelModel
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Kolommen definiëren voor tabel @Model.TabelNaam</h2>
+
+<h4>Vul hieronder voor elke kolom de naam van de kolom in.</h4>
+@using (Html.BeginForm("RijenInvoeren", "Referentie"))
+{
+    var kolomnummer = 0;
+    for (var i = 1; i <= Model.AantalKolommen; i++)
+    {
+        var kolomnaam = "Kolomnaam" + i;
+        var datatype = kolomnaam + "datatype";
+        var domein = kolomnaam + "domein";
+        <label>Kolom @i</label>
+        <input type="text" name="@kolomnaam"/>
+        <label>Datatype</label>
+        <input type="text" name="@datatype" id="@datatype"/>
+        <label>Domein</label>
+        <input type="text" name="@domein" id="@domein"/>
+
+        <script>
+            $(document).ready(function() {
+                $("#@datatype").autocomplete({
+                    source: '@Url.Action("GetDatatypesForAutoCompletion")',
+                    focus: function(event, ui) {
+                        $("#@datatype").val(ui.item.label);
+                        return false;
+                    },
+                    select: function(e, ui) {
+                        $("#@datatype").val(ui.item.label);
+                        $("#@datatype").val(ui.item.value);
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $("#@domein").autocomplete({
+                    source: '@Url.Action("GetDomeinenForAutoCompletion")',
+                    focus: function(event, ui) {
+                        $("#@domein").val(ui.item.label);
+                        return false;
+                    },
+                    select: function(e, ui) {
+                        $("#@domein").val(ui.item.label);
+                        $("#@domein").val(ui.item.value);
+                    }
+                });
+            });
+        </script>
+
+        <br/>
+        kolomnummer = i;
+    }
+
+    kolomnummer = kolomnummer + 1;
+    var omschrijvingKort = "Kolomnaam" + kolomnummer;
+    var datatype2 = omschrijvingKort + "datatype";
+    var domein2 = omschrijvingKort + "domein";
+    <label>Kolom @kolomnummer</label>
+    <input type="text" name="@omschrijvingKort" value="Omschrijving_kort"/>
+    <label>Datatype</label>
+    <input type="text" name="@datatype2" id="@datatype2" value="Omschrijving200" />
+    <label>Domein</label>
+    <input type="text" name="@domein2" id="@domein2"/>
+    <br/>
+    kolomnummer = kolomnummer + 1;
+    var omschrijvingLang = "Kolomnaam" + kolomnummer;
+    datatype2 = omschrijvingLang + "datatype";
+    domein2 = omschrijvingLang + "domein";
+    <label>Kolom @kolomnummer</label>
+    <input type="text" name="@omschrijvingLang" value="Omschrijving_lang"/>
+    <label>Datatype</label>
+    <input type="text" name="@datatype2" id="@datatype2" value="Omschrijving200" />
+    <label>Domein</label>
+    <input type="text" name="@domein2" id="@domein2"/>
+    <br/>
+    kolomnummer = kolomnummer + 1;
+    var geldigVan = "Kolomnaam" + kolomnummer;
+    datatype2 = geldigVan + "datatype";
+    domein2 = geldigVan + "domein";
+    <label>Kolom @kolomnummer</label>
+    <input type="text" name="@geldigVan" value="GeldigVanaf"/>
+    <label>Datatype</label>
+    <input type="text" name="@datatype2" id="@datatype2" value="Tijdstip" />  
+    <label>Domein</label>
+    <input type="text" name="@domein2" id="@domein2"/>
+    <br/>
+    kolomnummer = kolomnummer + 1;
+    var geldigTot = "Kolomnaam" + kolomnummer;
+    datatype2 = geldigTot + "datatype";
+    domein2 = geldigTot + "domein";
+    <label>Kolom @kolomnummer</label>
+    <input type="text" name="@geldigTot" value="GeldigTot"/>
+    <label>Datatype</label>
+    <input type="text" name="@datatype2" id="@datatype2" value="Tijdstip" />
+    <label>Domein</label>
+    <input type="text" name="@domein2" id="@domein2" />
+
+    <br/>
+
+
+    @Html.Hidden("Tabelnaam", Model.TabelNaam)
+    @Html.Hidden("AantalKolommen", kolomnummer)
+
+
+    <input type="submit" value="Volgende"/>
+}

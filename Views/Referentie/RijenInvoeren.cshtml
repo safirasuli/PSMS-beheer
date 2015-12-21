@@ -1,0 +1,58 @@
+﻿@model PSMSData.Code.Entities.ReferentieTabelModel
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Rijen vullen voor tabel @Model.TabelNaam</h2>
+
+@using (Html.BeginForm("Voltooien", "Referentie"))
+{
+    <div class="Rijen">
+        <div class="row">
+            @foreach (var kolom in Model.Kolommen)
+            {
+                <div class="col-xs-6 col-md-2"><b>@kolom.Kolomnaam</b><br/> <i>@(kolom.Datatype ?? kolom.Domein)</i></div>
+            }
+        </div>
+
+        <div class="row">
+            @for (var i = 1; i <= Model.AantalKolommen; i++)
+            {
+                var rijKolom = "Rij" + 1 + "Kolomnaam" + i;
+                <div class="col-xs-6 col-md-2">
+                    <input type="text" name="@rijKolom"/>
+                </div>
+            }
+        </div>
+
+    </div>
+
+    <br/>
+    <br/>
+    <input type="button" value="Nieuwe Regel" onclick="NieuweRegel()" />
+
+
+        @Html.Hidden("Tabelnaam", Model.TabelNaam)
+        @Html.Hidden("AantalKolommen", Model.AantalKolommen)
+        @Html.Hidden("Kolomnamen", Json.Encode(Model.Kolommen))
+        <input type="submit" value="Voltooien" />
+        }
+
+
+<script>
+    var kolommen = @Model.AantalKolommen;
+    var rijnummer = 2;
+    var rij;
+
+    function NieuweRegel() {
+        rij = "<div class='row'>";
+        for (var i = 1; i <= kolommen; i++) {
+            rij = rij + "<div class='col-xs-6 col-md-2'><input type='text' name='Rij" + rijnummer + "Kolomnaam"+i+"' /></div>";
+        }
+        rij = rij + "</div><br/>";
+        $(".Rijen").append(rij);
+        rij = "";
+        rijnummer++;
+    }
+</script>

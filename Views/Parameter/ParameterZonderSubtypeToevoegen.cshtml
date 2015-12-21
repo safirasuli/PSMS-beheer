@@ -1,0 +1,120 @@
+﻿@model PSMS_Beheer.Models.ParameterZonderSubtypeToevoegenViewModel
+
+<script>
+    function displayDatatype()
+    {
+        document.getElementById('domeinDiv').style.display = 'none';
+        document.getElementById('datatypeDiv').style.display = 'inline';
+    }
+    function displayDomein() {
+        document.getElementById('domeinDiv').style.display = 'inline';
+        document.getElementById('datatypeDiv').style.display = 'none';
+    }
+
+
+</script>
+
+
+<table>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <tr>
+           
+                <th>Parameter zonder subtype toevoegen</th>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Parameternaam")
+            </td>
+            <td>
+                @Html.EditorFor(m => m.paraZonderSubtype.parameternaam, new { @class = "text", type = "email", required = "required " })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Waarde")
+            </td>
+            <td>
+                @Html.EditorFor(m => m.paraZonderSubtype.waarde, new { @class = "text", type = "email", required = "required " })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Beschrijving lang")
+            </td>
+            <td>
+                @Html.EditorFor(m => m.paraZonderSubtype.beschrijving_lang)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Beschrijving kort")
+            </td>
+            <td>
+                @Html.EditorFor(m => m.paraZonderSubtype.beschrijving_kort, new { @class = "text", type = "email", required = "required " })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.Label("Voer type in:")
+                    <div>
+                        Domein <input type="radio" name="domeinOfDatatype" onclick="displayDomein()" value="Domein" checked>
+                        Datatype <input type="radio" name="domeinOfDatatype" onclick="displayDatatype()" value="Datatype"><br />
+                        <div id="domeinDiv" class="form-group input-group-sm">
+                            @Html.DropDownList("selectDomeinNaam", Model.DomeinnaamLijst)
+                            <br />
+                            @Html.Label("Voer DomeinCode naam in: ")
+                            <br />
+                            @Html.TextBox("DomeinCode")
+                        </div>
+
+                        <div id="datatypeDiv" style="display:none ">
+                            @Html.EditorFor(m => m.paraZonderSubtype.datatypecode)
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Geldig van")
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.paraZonderSubtype.geldigheidvan, new { type = "date" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Geldig tot")
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.paraZonderSubtype.geldigheidtot, new { type = "date" })
+            </td>
+        </tr>
+        @*<h4>Afdeling</h4>
+            <div>
+
+              City: @Html.ListBoxFor(m => m.idAfdelingRecht, Model.Afdeling, new { Multiple = "multiple" })
+            </div>*@
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">*@
+    <tr>
+        <td> </td>
+        <td>
+            <input type="submit" value="Create" class="btn btn-default" />
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+            @*</div>
+        </div>*@
+    }
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

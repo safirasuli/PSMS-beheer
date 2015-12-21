@@ -1,0 +1,82 @@
+﻿@model PSMS_Beheer.Models.ParameterModel
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ParameterModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParameterNaam, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParameterNaam)
+                @Html.ValidationMessageFor(model => model.ParameterNaam)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DomeinOfData, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DomeinOfData)
+                @Html.ValidationMessageFor(model => model.DomeinOfData)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Waarde, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Waarde)
+                @Html.ValidationMessageFor(model => model.Waarde)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.beschrijvingKort, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.beschrijvingKort)
+                @Html.ValidationMessageFor(model => model.beschrijvingKort)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BeschrijvingLang, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BeschrijvingLang)
+                @Html.ValidationMessageFor(model => model.BeschrijvingLang)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GeldigheidVan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GeldigheidVan)
+                @Html.ValidationMessageFor(model => model.GeldigheidVan)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GeldigheidTot, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GeldigheidTot)
+                @Html.ValidationMessageFor(model => model.GeldigheidTot)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<div>
+   
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

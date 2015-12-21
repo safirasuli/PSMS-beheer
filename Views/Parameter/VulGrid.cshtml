@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PSMS_Beheer.Models.ParameterZonderSubtypeModel>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParameterNaam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datatype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Domein)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Waarde)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.beschrijvingKort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeschrijvingLang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeldigheidVan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeldigheidTot)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterNaam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datatype)
+            <script>
+                $('#Domein').chang(function(){
+                    if($('#Domein').val().length > 0 ){
+                        $('#Datatype').disabled
+                    } else {
+
+                        $('#Datatype').delay(0).fadeIn(this, 400)            }
+                }
+            </script>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Domein)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Waarde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.beschrijvingKort)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeschrijvingLang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeldigheidVan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeldigheidTot)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

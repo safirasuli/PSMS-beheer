@@ -1,0 +1,47 @@
+﻿
+
+@model IEnumerable<PSMS_Beheer.Models.PMSIndexViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Subtype")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.parameternaam)
+        </th>
+        <th>
+            Datatype
+        </th>
+        <th>
+            Domein
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.parameternaam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datatypecode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.domeinID)
+        </td>
+        <td>
+            @Html.ActionLink("Selecteren", "SubtypeSelecteren", new { id = item.parameternaam }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,80 @@
+﻿@model PSMS_Beheer.Models.ParameterMetSubtypeModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Parameter met subtype: @Model.ParameterNaam</h2>
+
+<p>
+@using (Html.BeginForm("CreatedSubtype", "parametermetsubtype"))
+{
+    @Html.AntiForgeryToken()
+    if (Model.Datatype != null)
+    {
+        @Html.Hidden("gekozenDD", "Datatype")
+    }
+    else
+    {
+        @Html.Hidden("gekozenDD", "Domein")
+    }
+    @Html.Hidden("parameternaam", Model.ParameterNaam as string)
+    @Html.Hidden("datatypeselectie", Model.Datatype as string)
+    @Html.Hidden("domeinselectie", Model.Domein as string)
+
+
+    <input type="submit" name="nieuwSubtype" value="Nieuw subtype toevoegen" class="btn btn-default" />
+}
+    @*@Html.ActionLink("Nieuw subtype toevoegen", "CreatedSubtype")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Subtypenaam")
+        </th>
+        <th>
+            @Html.DisplayName("Waarde")
+        </th>
+        <th>
+            @Html.DisplayName("Beschrijving Kort")
+        </th>
+        <th>
+            @Html.DisplayName("Beschrijving Lang")
+        </th>
+        <th>
+            @Html.DisplayName("Geldig vanaf")
+        </th>
+        <th>
+            @Html.DisplayName("Geldig Tot")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Parameter)
+    {
+        <tr>
+            <td>
+                @item.subtypenaam
+            </td>
+            <td>
+                @item.waarde
+            </td>
+            <td>
+                @item.beschrijving_kort
+            </td>
+            <td>
+                @item.beschrijving_lang
+            </td>
+            <td>
+                @item.geldigheidvan.ToShortDateString()
+            </td>
+            <td>
+                @item.geldigheidtot.ToShortDateString()
+            </td>
+            <td>
+                @Html.ActionLink("Aanpassen", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Verwijderen", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
